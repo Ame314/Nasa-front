@@ -2,7 +2,7 @@ import React from "react";
 import MiniPlanet3D from "./MiniPlanet3D";
 
 export default function AnalysisPanel({ inputs }) {
-  // Función para analizar los datos ingresados
+  // Function to analyze the input data
   const analyzeInputs = () => {
     const analysis = {
       planetType: "",
@@ -15,139 +15,139 @@ export default function AnalysisPanel({ inputs }) {
       characteristics: []
     };
 
-    // Análisis del Radio del Planeta (koi_prad)
+    // Planet Radius Analysis (koi_prad)
     if (inputs.koi_prad) {
       if (inputs.koi_prad < 0.5) {
-        analysis.planetType = "Sub-Tierra (Mercurio-like)";
-        analysis.insights.push("🪨 Planeta pequeño, probablemente rocoso con poca atmósfera");
+        analysis.planetType = "Sub-Earth (Mercury-like)";
+        analysis.insights.push("🪨 Small rocky planet, likely with a thin atmosphere");
       } else if (inputs.koi_prad < 1.5) {
-        analysis.planetType = "Tipo Tierra/Super-Tierra";
-        analysis.characteristics.push({ label: "Tamaño", value: "Similar a la Tierra", icon: "🌍" });
-        analysis.insights.push("🌍 Tamaño comparable a la Tierra, posible planeta rocoso");
+        analysis.planetType = "Earth-like / Super-Earth";
+        analysis.characteristics.push({ label: "Size", value: "Similar to Earth", icon: "🌍" });
+        analysis.insights.push("🌍 Comparable size to Earth, possibly rocky");
       } else if (inputs.koi_prad < 4) {
-        analysis.planetType = "Mini-Neptuno";
-        analysis.characteristics.push({ label: "Tamaño", value: "Entre Tierra y Neptuno", icon: "🔵" });
-        analysis.insights.push("💨 Planeta de tamaño medio, probablemente con atmósfera densa");
+        analysis.planetType = "Mini-Neptune";
+        analysis.characteristics.push({ label: "Size", value: "Between Earth and Neptune", icon: "🔵" });
+        analysis.insights.push("💨 Medium-sized planet, likely with a dense atmosphere");
       } else {
-        analysis.planetType = "Gigante Gaseoso (Júpiter-like)";
-        analysis.characteristics.push({ label: "Tamaño", value: "Gigante Gaseoso", icon: "🪐" });
-        analysis.insights.push("🪐 Planeta masivo, principalmente compuesto de gas");
+        analysis.planetType = "Gas Giant (Jupiter-like)";
+        analysis.characteristics.push({ label: "Size", value: "Gas Giant", icon: "🪐" });
+        analysis.insights.push("🪐 Massive planet, mostly composed of gas");
       }
     }
 
-    // Análisis de Temperatura (koi_teq)
+    // Temperature Analysis (koi_teq)
     if (inputs.koi_teq) {
       const temp = inputs.koi_teq;
       if (temp > 1000) {
-        analysis.habitability = "❌ Inhabitable - Extremadamente Caliente";
-        analysis.characteristics.push({ label: "Temperatura", value: `${temp}K (Horno)`, icon: "🔥" });
-        analysis.warnings.push("⚠️ Temperatura superior a 1000K - Superficie fundida probable");
+        analysis.habitability = "❌ Uninhabitable – Extremely Hot";
+        analysis.characteristics.push({ label: "Temperature", value: `${temp}K (Oven-like)`, icon: "🔥" });
+        analysis.warnings.push("⚠️ Temperature above 1000K – Surface likely molten");
       } else if (temp > 600) {
-        analysis.habitability = "❌ Inhabitable - Muy Caliente";
-        analysis.characteristics.push({ label: "Temperatura", value: `${temp}K (Venusiano)`, icon: "🌡️" });
-        analysis.warnings.push("⚠️ Similar a Venus - Efecto invernadero extremo");
+        analysis.habitability = "❌ Uninhabitable – Very Hot";
+        analysis.characteristics.push({ label: "Temperature", value: `${temp}K (Venusian)`, icon: "🌡️" });
+        analysis.warnings.push("⚠️ Similar to Venus – Extreme greenhouse effect");
       } else if (temp >= 273 && temp <= 373) {
-        analysis.habitability = "✅ Zona Habitable - Agua Líquida Posible";
-        analysis.characteristics.push({ label: "Temperatura", value: `${temp}K (Templada)`, icon: "💧" });
-        analysis.insights.push("🎯 Temperatura perfecta para agua líquida en superficie");
+        analysis.habitability = "✅ Habitable Zone – Liquid Water Possible";
+        analysis.characteristics.push({ label: "Temperature", value: `${temp}K (Temperate)`, icon: "💧" });
+        analysis.insights.push("🎯 Ideal temperature range for liquid water on the surface");
       } else if (temp < 200) {
-        analysis.habitability = "❌ Inhabitable - Extremadamente Frío";
-        analysis.characteristics.push({ label: "Temperatura", value: `${temp}K (Congelado)`, icon: "❄️" });
-        analysis.warnings.push("⚠️ Temperatura bajo punto de congelación - Mundo helado");
+        analysis.habitability = "❌ Uninhabitable – Extremely Cold";
+        analysis.characteristics.push({ label: "Temperature", value: `${temp}K (Frozen)`, icon: "❄️" });
+        analysis.warnings.push("⚠️ Below freezing point – Likely an icy world");
       } else {
-        analysis.habitability = "⚠️ Zona Marginal";
-        analysis.characteristics.push({ label: "Temperatura", value: `${temp}K`, icon: "🌡️" });
+        analysis.habitability = "⚠️ Marginal Zone";
+        analysis.characteristics.push({ label: "Temperature", value: `${temp}K`, icon: "🌡️" });
       }
     }
 
-    // Análisis del Periodo Orbital (koi_period)
+    // Orbital Period Analysis (koi_period)
     if (inputs.koi_period) {
       const period = inputs.koi_period;
       if (period < 1) {
-        analysis.orbitType = "Órbita Ultra-Corta (< 1 día)";
-        analysis.characteristics.push({ label: "Órbita", value: `${period.toFixed(2)} días`, icon: "⚡" });
-        analysis.insights.push("⚡ Órbita extremadamente rápida - Muy cerca de su estrella");
+        analysis.orbitType = "Ultra-Short Orbit (< 1 day)";
+        analysis.characteristics.push({ label: "Orbit", value: `${period.toFixed(2)} days`, icon: "⚡" });
+        analysis.insights.push("⚡ Extremely fast orbit – Very close to its star");
       } else if (period < 10) {
-        analysis.orbitType = "Órbita Cercana (1-10 días)";
-        analysis.characteristics.push({ label: "Órbita", value: `${period.toFixed(1)} días`, icon: "🔄" });
-        analysis.insights.push("🔄 Órbita corta - Planeta interno tipo Mercurio");
+        analysis.orbitType = "Close Orbit (1–10 days)";
+        analysis.characteristics.push({ label: "Orbit", value: `${period.toFixed(1)} days`, icon: "🔄" });
+        analysis.insights.push("🔄 Short orbit – Inner planet like Mercury");
       } else if (period < 365) {
-        analysis.orbitType = "Órbita Media (10-365 días)";
-        analysis.characteristics.push({ label: "Órbita", value: `${period.toFixed(0)} días`, icon: "🌐" });
-        analysis.insights.push("🌐 Órbita moderada - Zona habitable posible");
+        analysis.orbitType = "Medium Orbit (10–365 days)";
+        analysis.characteristics.push({ label: "Orbit", value: `${period.toFixed(0)} days`, icon: "🌐" });
+        analysis.insights.push("🌐 Moderate orbit – Possibly in the habitable zone");
       } else {
-        analysis.orbitType = "Órbita Larga (> 1 año)";
-        analysis.characteristics.push({ label: "Órbita", value: `${(period/365).toFixed(1)} años`, icon: "🌍" });
-        analysis.insights.push("🌍 Órbita amplia - Planeta externo tipo Marte o más");
+        analysis.orbitType = "Long Orbit (> 1 year)";
+        analysis.characteristics.push({ label: "Orbit", value: `${(period / 365).toFixed(1)} years`, icon: "🌍" });
+        analysis.insights.push("🌍 Wide orbit – Outer planet like Mars or beyond");
       }
     }
 
-    // Análisis de Insolación (koi_insol)
+    // Stellar Insolation Analysis (koi_insol)
     if (inputs.koi_insol) {
       const insol = inputs.koi_insol;
       if (insol > 2) {
-        analysis.warnings.push("☀️ Alta radiación estelar - Superficie probablemente árida");
+        analysis.warnings.push("☀️ High stellar radiation – Surface likely arid");
       } else if (insol >= 0.25 && insol <= 2) {
-        analysis.insights.push("☀️ Nivel de radiación óptimo para vida como la conocemos");
+        analysis.insights.push("☀️ Optimal radiation level for life as we know it");
       } else {
-        analysis.warnings.push("🌑 Baja radiación estelar - Mundo oscuro y frío");
+        analysis.warnings.push("🌑 Low stellar radiation – Dark and cold world");
       }
-      analysis.characteristics.push({ 
-        label: "Insolación", 
-        value: `${insol.toFixed(2)}x Tierra`, 
-        icon: "☀️" 
+      analysis.characteristics.push({
+        label: "Insolation",
+        value: `${insol.toFixed(2)}x Earth`,
+        icon: "☀️"
       });
     }
 
-    // Análisis de la Estrella (koi_steff)
+    // Stellar Type Analysis (koi_steff)
     if (inputs.koi_steff) {
       const temp = inputs.koi_steff;
       if (temp > 7500) {
-        analysis.stellarType = "⭐ Estrella Tipo A (Caliente - Azul/Blanca)";
+        analysis.stellarType = "⭐ Type A Star (Hot – Blue/White)";
       } else if (temp > 6000) {
-        analysis.stellarType = "⭐ Estrella Tipo F-G (Sol-like)";
-        analysis.insights.push("⭐ Estrella similar al Sol - Excelente para vida");
+        analysis.stellarType = "⭐ Type F–G Star (Sun-like)";
+        analysis.insights.push("⭐ Star similar to our Sun – Great potential for life");
       } else if (temp > 5200) {
-        analysis.stellarType = "⭐ Estrella Tipo G (Como nuestro Sol)";
-        analysis.insights.push("☀️ Estrella idéntica a nuestro Sol");
+        analysis.stellarType = "⭐ Type G Star (Like our Sun)";
+        analysis.insights.push("☀️ Virtually identical to the Sun");
       } else if (temp > 3700) {
-        analysis.stellarType = "⭐ Estrella Tipo K (Enana Naranja)";
-        analysis.insights.push("🟠 Estrella más fría que el Sol - Vida longeva");
+        analysis.stellarType = "⭐ Type K Star (Orange Dwarf)";
+        analysis.insights.push("🟠 Cooler than the Sun – Long-lived systems");
       } else {
-        analysis.stellarType = "⭐ Estrella Tipo M (Enana Roja)";
-        analysis.warnings.push("🔴 Enana roja - Actividad estelar puede ser problemática");
+        analysis.stellarType = "⭐ Type M Star (Red Dwarf)";
+        analysis.warnings.push("🔴 Red dwarf – Stellar activity could be hazardous");
       }
     }
 
-    // Análisis de Calidad de Detección (koi_model_snr)
+    // Detection Quality Analysis (koi_model_snr)
     if (inputs.koi_model_snr) {
       const snr = inputs.koi_model_snr;
       if (snr > 20) {
-        analysis.detectionQuality = "✅ Detección Excelente (SNR > 20)";
-        analysis.characteristics.push({ label: "Confianza", value: "Alta", icon: "✅" });
+        analysis.detectionQuality = "✅ Excellent Detection (SNR > 20)";
+        analysis.characteristics.push({ label: "Confidence", value: "High", icon: "✅" });
       } else if (snr > 10) {
-        analysis.detectionQuality = "✓ Detección Buena (SNR 10-20)";
-        analysis.characteristics.push({ label: "Confianza", value: "Media-Alta", icon: "✓" });
+        analysis.detectionQuality = "✓ Good Detection (SNR 10–20)";
+        analysis.characteristics.push({ label: "Confidence", value: "Medium–High", icon: "✓" });
       } else if (snr > 7) {
-        analysis.detectionQuality = "⚠️ Detección Marginal (SNR 7-10)";
-        analysis.characteristics.push({ label: "Confianza", value: "Media", icon: "⚠️" });
-        analysis.warnings.push("⚠️ Señal débil - Requiere confirmación adicional");
+        analysis.detectionQuality = "⚠️ Marginal Detection (SNR 7–10)";
+        analysis.characteristics.push({ label: "Confidence", value: "Medium", icon: "⚠️" });
+        analysis.warnings.push("⚠️ Weak signal – Needs further confirmation");
       } else {
-        analysis.detectionQuality = "❌ Detección Débil (SNR < 7)";
-        analysis.characteristics.push({ label: "Confianza", value: "Baja", icon: "❌" });
-        analysis.warnings.push("❌ Señal muy débil - Alto riesgo de falso positivo");
+        analysis.detectionQuality = "❌ Weak Detection (SNR < 7)";
+        analysis.characteristics.push({ label: "Confidence", value: "Low", icon: "❌" });
+        analysis.warnings.push("❌ Very weak signal – High risk of false positive");
       }
     }
 
-    // Análisis del parámetro de impacto (koi_impact)
+    // Impact Parameter Analysis (koi_impact)
     if (inputs.koi_impact !== undefined && inputs.koi_impact !== "") {
       const impact = inputs.koi_impact;
       if (impact < 0.3) {
-        analysis.insights.push("🎯 Tránsito central - Observación óptima");
+        analysis.insights.push("🎯 Central transit – Optimal observation geometry");
       } else if (impact < 0.7) {
-        analysis.insights.push("📐 Tránsito moderado - Buena geometría");
+        analysis.insights.push("📐 Moderate transit – Good geometry");
       } else {
-        analysis.warnings.push("📐 Tránsito rasante - Geometría difícil");
+        analysis.warnings.push("📐 Grazing transit – Challenging observation geometry");
       }
     }
 
@@ -161,25 +161,25 @@ export default function AnalysisPanel({ inputs }) {
     <div className="glass-panel analysis-panel">
       <h2 className="panel-title">
         <span className="title-icon">🔬</span>
-        Análisis Inteligente
+        Intelligent Analysis
       </h2>
 
       {!hasData ? (
         <div className="no-data-message">
           <div className="no-data-icon"></div>
-          <p>Ingresa los parámetros del planeta para ver el análisis detallado</p>
+          <p>Enter the planet parameters to see a detailed analysis</p>
         </div>
       ) : (
         <div className="analysis-content">
-          {/* Mini Planeta 3D */}
+          {/* Mini 3D Planet */}
           <div className="mini-planet-container">
             <MiniPlanet3D inputs={inputs} />
             <div className="planet-label">
-              {analysis.planetType || "Exoplaneta"}
+              {analysis.planetType || "Exoplanet"}
             </div>
           </div>
 
-          {/* Características Principales */}
+          {/* Main Characteristics */}
           {analysis.characteristics.length > 0 && (
             <div className="characteristics-grid">
               {analysis.characteristics.map((char, idx) => (
@@ -194,10 +194,10 @@ export default function AnalysisPanel({ inputs }) {
             </div>
           )}
 
-          {/* Habitabilidad */}
+          {/* Habitability */}
           {analysis.habitability && (
             <div className="analysis-section habitability">
-              <h3 className="section-title"> Evaluación de Habitabilidad</h3>
+              <h3 className="section-title">Habitability Evaluation</h3>
               <div className="habitability-status">{analysis.habitability}</div>
             </div>
           )}
@@ -205,7 +205,7 @@ export default function AnalysisPanel({ inputs }) {
           {/* Insights */}
           {analysis.insights.length > 0 && (
             <div className="analysis-section insights">
-              <h3 className="section-title">💡 Hallazgos Clave</h3>
+              <h3 className="section-title">💡 Key Findings</h3>
               <ul className="insights-list">
                 {analysis.insights.map((insight, idx) => (
                   <li key={idx} className="insight-item">{insight}</li>
@@ -214,10 +214,10 @@ export default function AnalysisPanel({ inputs }) {
             </div>
           )}
 
-          {/* Advertencias */}
+          {/* Warnings */}
           {analysis.warnings.length > 0 && (
             <div className="analysis-section warnings">
-              <h3 className="section-title">⚠️ Consideraciones</h3>
+              <h3 className="section-title">⚠️ Considerations</h3>
               <ul className="warnings-list">
                 {analysis.warnings.map((warning, idx) => (
                   <li key={idx} className="warning-item">{warning}</li>
@@ -226,18 +226,18 @@ export default function AnalysisPanel({ inputs }) {
             </div>
           )}
 
-          {/* Información Estelar */}
+          {/* Stellar Information */}
           {analysis.stellarType && (
             <div className="analysis-section stellar">
-              <h3 className="section-title">Estrella Anfitriona</h3>
+              <h3 className="section-title">Host Star</h3>
               <div className="stellar-info">{analysis.stellarType}</div>
             </div>
           )}
 
-          {/* Calidad de Detección */}
+          {/* Detection Quality */}
           {analysis.detectionQuality && (
             <div className="analysis-section detection">
-              <h3 className="section-title">📡 Calidad de Señal</h3>
+              <h3 className="section-title">📡 Signal Quality</h3>
               <div className="detection-quality">{analysis.detectionQuality}</div>
             </div>
           )}

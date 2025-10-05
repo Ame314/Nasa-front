@@ -7,9 +7,9 @@ export default function Footer() {
         <div className="footer-section">
           <h3 className="footer-title">Sobre el Proyecto</h3>
           <p className="footer-text">
-            Sistema avanzado de clasificación de exoplanetas utilizando Machine Learning 
-            y datos de la misión Kepler de la NASA. Nuestra misión es democratizar 
-            el acceso al conocimiento astronómico.
+            Advanced exoplanet classification system using Machine Learning 
+and data from NASA's Kepler mission. Our mission is to democratize 
+access to astronomical knowledge.
           </p>
         </div>
 
@@ -36,7 +36,7 @@ export default function Footer() {
         <div className="footer-section">
           <h3 className="footer-title">Contacto</h3>
           <p className="footer-text">
-            Equipo radiación X
+            Team: Radiación X
           </p>
          <p className="footer-text">
             <strong>Contacto:</strong><br />
@@ -54,13 +54,13 @@ export default function Footer() {
 
       <div className="footer-bottom">
         <p className="footer-copyright">
-          © 2025 Exoplanet Explorer. Desarrollado con pasión por la astronomía. 
-          Los datos son de dominio público de NASA.
+          © 2025 Exoplanet Explorer. Developed with a passion for astronomy. 
+          The data is in the public domain from NASA.
         </p>
         <div className="footer-stats">
-          <span>🌍 5,437 exoplanetas</span>
-          <span>⭐ 3,892 sistemas estelares</span>
-          <span>🔬 1,289 análisis realizados</span>
+          <span>🌍 5,437 exoplanets</span>
+          <span>⭐ 3,892 stellar systems</span>
+          <span>🔬 1,289 analyses performed</span>
         </div>
       </div>
     </footer>
