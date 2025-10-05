@@ -166,7 +166,7 @@ export default function AnalysisPanel({ inputs }) {
 
       {!hasData ? (
         <div className="no-data-message">
-          <div className="no-data-icon">📊</div>
+          <div className="no-data-icon"></div>
           <p>Ingresa los parámetros del planeta para ver el análisis detallado</p>
         </div>
       ) : (
@@ -197,7 +197,7 @@ export default function AnalysisPanel({ inputs }) {
           {/* Habitabilidad */}
           {analysis.habitability && (
             <div className="analysis-section habitability">
-              <h3 className="section-title">🌍 Evaluación de Habitabilidad</h3>
+              <h3 className="section-title"> Evaluación de Habitabilidad</h3>
               <div className="habitability-status">{analysis.habitability}</div>
             </div>
           )}

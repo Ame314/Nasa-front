@@ -36,13 +36,19 @@ export default function Footer() {
         <div className="footer-section">
           <h3 className="footer-title">Contacto</h3>
           <p className="footer-text">
-            ¿Interesado en colaborar o tienes preguntas?
+            Equipo radiación X
           </p>
-          <div className="social-links">
-            <a href="#" className="social-link" title="GitHub">💻</a>
-            <a href="#" className="social-link" title="LinkedIn">🔗</a>
-            <a href="#" className="social-link" title="Email">📧</a>
-          </div>
+         <p className="footer-text">
+            <strong>Contacto:</strong><br />
+            Amelie Grob - <a href="mailto:agrob@pucese.edu.ec">agrob@pucese.edu.ec</a><br />
+            Eliana Lucas - <a href="mailto:emlucas@pucese.edu.ec">emlucas@pucese.edu.ec</a><br />
+            Fátima Quintero - <a href="mailto:fdquintero@pucese.edu.ec">fdquintero@pucese.edu.ec</a><br />
+            Mateo Quintero - <a href="mailto:mateo.quinteror2022@gmail.com">mateo.quinteror2022@gmail.com</a><br />
+            <span style={{ color: "#888" }}>
+                Andy Torres y Andrés Carvajal: <em>¡No hicieron nada! <span role="img" aria-label="carcajada">😂</span></em>
+            </span>
+        </p>
+
         </div>
       </div>
 

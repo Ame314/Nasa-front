@@ -35,7 +35,6 @@ export default function StatsPanel({ stats }) {
   return (
     <div className="glass-panel stats-panel">
       <h2 className="panel-title">
-        <span className="title-icon">📊</span>
         Mission Statistics
       </h2>
       <div className="stats-grid">
