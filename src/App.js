@@ -6,6 +6,9 @@ import PredictionPanel from "./components/PredictionPanel";
 import ChartsPanel from "./components/ChartsPanel";
 import InfoPanel from "./components/InfoPanel";
 import AnalysisPanel from "./components/AnalysisPanel";
+import EducationalSection from "./components/EducationalSection";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import "./styles/cosmic.css";
 
 function App() {
@@ -34,7 +37,6 @@ function App() {
     systems: 3892,
   });
 
-  // 🧠 Validación: solo números y punto decimal
   const handleChange = (e) => {
     const { name, value } = e.target;
     const regex = /^[0-9]*\.?[0-9]*$/;
@@ -48,26 +50,37 @@ function App() {
   const handlePredict = async () => {
     const hasEmpty = Object.values(inputs).some((v) => v === "");
     if (hasEmpty) {
-      alert("Por favor ingresa solo números en todos los campos antes de analizar 🧪");
+      alert("Por favor ingresa todos los valores numéricos antes de analizar");
       return;
     }
 
     setLoading(true);
     try {
-      const res = await axios.post("http://127.0.0.1:8000/predict", inputs);
+      const dataToSend = {
+        ...inputs,
+        koi_fpflag_nt: 0,
+        koi_fpflag_ss: 0,
+        koi_fpflag_co: 0,
+        koi_fpflag_ec: 0
+      };
+
+      console.log("Enviando datos:", dataToSend);
+      const res = await axios.post("http://127.0.0.1:8000/predict", dataToSend);
+      console.log("Respuesta recibida:", res.data);
       setPredictResult(res.data);
 
       const type = res.data.prediccion?.toLowerCase() || "";
-      if (type.includes("habitable")) setMood("habitable");
-      else if (type.includes("gas")) setMood("gaseous");
+      if (type.includes("habitable") || type.includes("earth")) setMood("habitable");
+      else if (type.includes("gas") || type.includes("jupiter")) setMood("gaseous");
       else if (type.includes("hot")) setMood("hot");
-      else if (type.includes("cold")) setMood("cold");
+      else if (type.includes("cold") || type.includes("ice")) setMood("cold");
       else setMood("neutral");
 
       setStats((prev) => ({ ...prev, analyzed: prev.analyzed + 1 }));
     } catch (error) {
-      console.error("Error:", error);
-      alert("Error al conectar con el servidor. Verifica que el backend esté corriendo.");
+      console.error("Error completo:", error);
+      console.error("Respuesta del servidor:", error.response?.data);
+      alert("Error al conectar con el servidor. Verifica que el backend esté corriendo en http://127.0.0.1:8000");
     } finally {
       setLoading(false);
     }
@@ -75,41 +88,29 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* Fondo 3D */}
       <Planet3D mood={mood} />
+      <Header />
 
-      {/* Header */}
-      <header className="app-header">
-        <div className="header-content">
-          <h1 className="main-title">
-            <span className="icon">🌌</span>
-            EXOPLANET EXPLORER
-            <span className="icon">🚀</span>
-          </h1>
-          <div className="header-subtitle">Advanced Planetary Analysis System</div>
+      <main className="main-content">
+        <EducationalSection />
+
+        <div className="dashboard-grid" id="analysis">
+          <StatsPanel stats={stats} />
+          <PredictionPanel
+            inputs={inputs}
+            handleChange={handleChange}
+            handlePredict={handlePredict}
+            loading={loading}
+            predictResult={predictResult}
+          />
+          <AnalysisPanel inputs={inputs} />
+          <ChartsPanel inputs={inputs} mood={mood} />
+          <InfoPanel predictResult={predictResult} />
         </div>
-      </header>
+      </main>
 
-      {/* Dashboard */}
-      <div className="dashboard-grid">
-        <StatsPanel stats={stats} />
+      <Footer />
 
-        <PredictionPanel
-          inputs={inputs}
-          handleChange={handleChange}
-          handlePredict={handlePredict}
-          loading={loading}
-          predictResult={predictResult}
-        />
-
-        <ChartsPanel inputs={inputs} mood={mood} />
-        <InfoPanel predictResult={predictResult} />
-
-        {/* 🔬 Panel de Análisis Inteligente */}
-        <AnalysisPanel inputs={inputs} />
-      </div>
-
-      {/* Efectos estelares */}
       <div className="stars"></div>
       <div className="stars2"></div>
       <div className="stars3"></div>
