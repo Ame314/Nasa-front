@@ -44,9 +44,7 @@ access to astronomical knowledge.
             Eliana Lucas - <a href="mailto:emlucas@pucese.edu.ec">emlucas@pucese.edu.ec</a><br />
             Fátima Quintero - <a href="mailto:fdquintero@pucese.edu.ec">fdquintero@pucese.edu.ec</a><br />
             Mateo Quintero - <a href="mailto:mateo.quinteror2022@gmail.com">mateo.quinteror2022@gmail.com</a><br />
-            <span style={{ color: "#888" }}>
-                Andy Torres y Andrés Carvajal: <em>¡No hicieron nada! <span role="img" aria-label="carcajada">😂</span></em>
-            </span>
+
         </p>
 
         </div>

@@ -25,6 +25,10 @@ function App() {
     koi_slogg: "",
     koi_kepmag: "",
     koi_model_snr: "",
+    koi_fpflag_nt: 0,
+    koi_fpflag_ss: 0,
+    koi_fpflag_co: 0,
+    koi_fpflag_ec: 0,
   });
 
   const [predictResult, setPredictResult] = useState(null);

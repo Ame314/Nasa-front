@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function PredictionPanel({ inputs, handleChange, handlePredict, loading, predictResult }) {
+export default function PredictionPanel({ inputs, handleChange, handleFlagChange, handlePredict, loading, predictResult }) {
   const fields = [
     { name: "koi_period", label: "Orbital Period", unit: "days", icon: "🔄" },
     { name: "koi_duration", label: "Transit Duration", unit: "hours", icon: "⏱️" },
@@ -14,6 +14,13 @@ export default function PredictionPanel({ inputs, handleChange, handlePredict, l
     { name: "koi_slogg", label: "Stellar Gravity", unit: "log10(cm/s²)", icon: "🌟" },
     { name: "koi_kepmag", label: "Kepler Magnitude", unit: "mag", icon: "💫" },
     { name: "koi_model_snr", label: "Signal to Noise", unit: "", icon: "📡" },
+  ];
+
+  const flags = [
+    { name: "koi_fpflag_nt", label: "Not Transit-Like", icon: "🚫" },
+    { name: "koi_fpflag_ss", label: "Stellar Eclipse", icon: "⭐" },
+    { name: "koi_fpflag_co", label: "Centroid Offset", icon: "📍" },
+    { name: "koi_fpflag_ec", label: "Ephemeris Match", icon: "⏰" },
   ];
 
   return (
@@ -46,6 +53,31 @@ export default function PredictionPanel({ inputs, handleChange, handlePredict, l
         ))}
       </div>
 
+      {/* False Positive Flags */}
+      <div className="flags-section">
+        <h3 className="flags-title">
+          <span className="title-icon">🚩</span>
+          False Positive Flags
+        </h3>
+        <p className="flags-description">
+          Mark any flags that indicate potential issues with the detection
+        </p>
+        <div className="flags-grid">
+          {flags.map((flag) => (
+            <label key={flag.name} className="flag-checkbox">
+              <input
+                type="checkbox"
+                name={flag.name}
+                checked={inputs[flag.name] === 1}
+                onChange={handleFlagChange}
+              />
+              <span className="flag-icon">{flag.icon}</span>
+              <span className="flag-label">{flag.label}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
       <button 
         onClick={handlePredict} 
         disabled={loading}
@@ -73,18 +105,21 @@ export default function PredictionPanel({ inputs, handleChange, handlePredict, l
           </div>
           <div className="result-content">
             <div className="result-text">{predictResult.prediccion}</div>
-            {predictResult.probabilidad && (
-              <div className="confidence-bar">
-                <div className="confidence-label">Confidence Level</div>
-                <div className="confidence-track">
-                  <div 
-                    className="confidence-fill"
-                    style={{ width: `${predictResult.probabilidad * 100}%` }}
-                  ></div>
-                </div>
-                <div className="confidence-value">
-                  {(predictResult.probabilidad * 100).toFixed(1)}%
-                </div>
+            {predictResult.probabilidades && (
+              <div className="probabilities-section">
+                <h4 className="prob-title">Classification Probabilities</h4>
+                {Object.entries(predictResult.probabilidades).map(([key, value]) => (
+                  <div key={key} className="prob-item">
+                    <div className="prob-label">{key}</div>
+                    <div className="prob-bar-container">
+                      <div 
+                        className="prob-bar-fill"
+                        style={{ width: `${value * 100}%` }}
+                      ></div>
+                    </div>
+                    <div className="prob-value">{(value * 100).toFixed(1)}%</div>
+                  </div>
+                ))}
               </div>
             )}
           </div>
