@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Planet3D from "./components/Planet3D";
 import StatsPanel from "./components/StatsPanel";
 import PredictionPanel from "./components/PredictionPanel";
 import ChartsPanel from "./components/ChartsPanel";
 import InfoPanel from "./components/InfoPanel";
+import AnalysisPanel from "./components/AnalysisPanel";
 import "./styles/cosmic.css";
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
     koi_kepmag: "",
     koi_model_snr: "",
   });
-  
+
   const [predictResult, setPredictResult] = useState(null);
   const [mood, setMood] = useState("neutral");
   const [loading, setLoading] = useState(false);
@@ -30,44 +31,53 @@ function App() {
     totalPlanets: 5437,
     habitable: 24,
     analyzed: 1289,
-    systems: 3892
+    systems: 3892,
   });
 
+  // 🧠 Validación: solo números y punto decimal
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const parsedValue = type === "checkbox" ? (checked ? 1 : 0) : parseFloat(value);
-    setInputs({ ...inputs, [name]: isNaN(parsedValue) ? "" : parsedValue });
+    const { name, value } = e.target;
+    const regex = /^[0-9]*\.?[0-9]*$/;
+
+    if (value === "" || regex.test(value)) {
+      const parsedValue = value === "" ? "" : parseFloat(value);
+      setInputs({ ...inputs, [name]: isNaN(parsedValue) ? "" : parsedValue });
+    }
   };
 
   const handlePredict = async () => {
+    const hasEmpty = Object.values(inputs).some((v) => v === "");
+    if (hasEmpty) {
+      alert("Por favor ingresa solo números en todos los campos antes de analizar 🧪");
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await axios.post("http://127.0.0.1:8000/predict", inputs);
       setPredictResult(res.data);
 
-      const type = res.data.prediccion?.toLowerCase();
+      const type = res.data.prediccion?.toLowerCase() || "";
       if (type.includes("habitable")) setMood("habitable");
       else if (type.includes("gas")) setMood("gaseous");
       else if (type.includes("hot")) setMood("hot");
       else if (type.includes("cold")) setMood("cold");
       else setMood("neutral");
 
-      // Actualizar stats
-      setStats(prev => ({
-        ...prev,
-        analyzed: prev.analyzed + 1
-      }));
+      setStats((prev) => ({ ...prev, analyzed: prev.analyzed + 1 }));
     } catch (error) {
       console.error("Error:", error);
       alert("Error al conectar con el servidor. Verifica que el backend esté corriendo.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
     <div className="app-container">
+      {/* Fondo 3D */}
       <Planet3D mood={mood} />
-      
+
       {/* Header */}
       <header className="app-header">
         <div className="header-content">
@@ -76,19 +86,15 @@ function App() {
             EXOPLANET EXPLORER
             <span className="icon">🚀</span>
           </h1>
-          <div className="header-subtitle">
-            Advanced Planetary Analysis System
-          </div>
+          <div className="header-subtitle">Advanced Planetary Analysis System</div>
         </div>
       </header>
 
-      {/* Main Dashboard */}
+      {/* Dashboard */}
       <div className="dashboard-grid">
-        {/* Stats Panel */}
         <StatsPanel stats={stats} />
 
-        {/* Prediction Panel */}
-        <PredictionPanel 
+        <PredictionPanel
           inputs={inputs}
           handleChange={handleChange}
           handlePredict={handlePredict}
@@ -96,14 +102,14 @@ function App() {
           predictResult={predictResult}
         />
 
-        {/* Charts Panel */}
         <ChartsPanel inputs={inputs} mood={mood} />
-
-        {/* Info Panel */}
         <InfoPanel predictResult={predictResult} />
+
+        {/* 🔬 Panel de Análisis Inteligente */}
+        <AnalysisPanel inputs={inputs} />
       </div>
 
-      {/* Particles Effect */}
+      {/* Efectos estelares */}
       <div className="stars"></div>
       <div className="stars2"></div>
       <div className="stars3"></div>

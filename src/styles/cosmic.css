@@ -274,6 +274,26 @@ body {
 /* ========== PREDICTION PANEL ========== */
 .prediction-panel {
   grid-column: span 6;
+  max-height: 900px;
+  overflow-y: auto;
+}
+
+.prediction-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.prediction-panel::-webkit-scrollbar-track {
+  background: rgba(20, 15, 40, 0.6);
+  border-radius: 4px;
+}
+
+.prediction-panel::-webkit-scrollbar-thumb {
+  background: rgba(111, 66, 193, 0.6);
+  border-radius: 4px;
+}
+
+.prediction-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(111, 66, 193, 0.8);
 }
 
 .input-grid {
@@ -537,6 +557,187 @@ body {
 }
 
 /* ========== INFO PANEL ========== */
+.info-panel {
+  grid-column: span 12;
+}
+
+/* ========== ANALYSIS PANEL ========== */
+.analysis-panel {
+  grid-column: span 6;
+}
+
+.no-data-message {
+  text-align: center;
+  padding: 60px 20px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.no-data-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.no-data-message p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.analysis-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Mini Planet Container */
+.mini-planet-container {
+  position: relative;
+  background: rgba(10, 5, 20, 0.8);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(120, 80, 255, 0.3);
+}
+
+.planet-label {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Characteristics Grid */
+.characteristics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.characteristic-card {
+  background: rgba(20, 15, 40, 0.6);
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-left: 3px solid #6f42c1;
+  transition: all 0.3s ease;
+}
+
+.characteristic-card:hover {
+  background: rgba(30, 20, 50, 0.8);
+  transform: translateX(5px);
+}
+
+.char-icon {
+  font-size: 2rem;
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+.char-content {
+  flex: 1;
+}
+
+.char-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.char-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Analysis Sections */
+.analysis-section {
+  background: rgba(20, 15, 40, 0.6);
+  border-radius: 12px;
+  padding: 20px;
+  border-left: 4px solid #6f42c1;
+}
+
+.analysis-section.habitability {
+  border-left-color: #33ffaa;
+}
+
+.analysis-section.insights {
+  border-left-color: #ffd700;
+}
+
+.analysis-section.warnings {
+  border-left-color: #ff6b6b;
+}
+
+.analysis-section.stellar {
+  border-left-color: #ffaa00;
+}
+
+.analysis-section.detection {
+  border-left-color: #0099ff;
+}
+
+.section-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.habitability-status,
+.stellar-info,
+.detection-quality {
+  font-size: 1rem;
+  color: #fff;
+  padding: 12px;
+  background: rgba(30, 20, 50, 0.6);
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Lists */
+.insights-list,
+.warnings-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.insight-item,
+.warning-item {
+  padding: 12px 15px;
+  background: rgba(30, 20, 50, 0.6);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.insight-item:hover,
+.warning-item:hover {
+  background: rgba(40, 25, 60, 0.8);
+  transform: translateX(5px);
+}
+
+.insight-item {
+  border-left: 3px solid #ffd700;
+}
+
+.warning-item {
+  border-left: 3px solid #ff6b6b;
+}
+
 .info-panel {
   grid-column: span 12;
 }
