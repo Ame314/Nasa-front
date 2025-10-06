@@ -25,6 +25,10 @@ function App() {
     koi_slogg: "",
     koi_kepmag: "",
     koi_model_snr: "",
+    koi_fpflag_nt: 0,
+    koi_fpflag_ss: 0,
+    koi_fpflag_co: 0,
+    koi_fpflag_ec: 0,
   });
 
   const [predictResult, setPredictResult] = useState(null);
@@ -65,7 +69,7 @@ function App() {
       };
 
       console.log("Enviando datos:", dataToSend);
-      const res = await axios.post("http://127.0.0.1:8000/predict", dataToSend);
+      const res = await axios.post("https://nasa-back-ewoh.onrender.com/predict", dataToSend);
       console.log("Respuesta recibida:", res.data);
       setPredictResult(res.data);
 
@@ -80,7 +84,7 @@ function App() {
     } catch (error) {
       console.error("Error completo:", error);
       console.error("Respuesta del servidor:", error.response?.data);
-      alert("Error al conectar con el servidor. Verifica que el backend esté corriendo en http://127.0.0.1:8000");
+      alert("Error al conectar con el servidor. Verifica que el backend esté corriendo en https://nasa-back-ewoh.onrender.com");
     } finally {
       setLoading(false);
     }
